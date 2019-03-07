@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Taggie</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_answer_creater">AnswerCreaterActivity</string>
+</resources>
