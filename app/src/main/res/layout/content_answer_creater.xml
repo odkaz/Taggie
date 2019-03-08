@@ -26,30 +26,6 @@
     android:id="@+id/item_layout"
     android:layout_weight="2">
 
-        <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Draggable_Text"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:layout_alignParentStart="true"/>
+            </RelativeLayout>
 
-        <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"
-                android:layout_centerHorizontal="true"/>
-
-        <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Draggable_Button"
-                android:layout_alignParentEnd="true"/>
-
-    </RelativeLayout>
-
-</LinearLayout>
+        </LinearLayout>

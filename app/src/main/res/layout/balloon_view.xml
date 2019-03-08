@@ -7,5 +7,5 @@
         android:gravity="center"
         android:text="Title"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="13sp"
         android:background="@drawable/balloon" />

@@ -12,13 +12,13 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 
-class BalloonView(private var title: String, private var content: String, private var posX: Int, private var posY: Int, context: Context, private var parent: ViewGroup): TextView(context), View.OnLongClickListener {
+class BalloonView(private var title: String, private var content: String, private var posX: Int, private var posY: Int, context: Context): TextView(context), View.OnLongClickListener {
     init {
 
 
     }
 
-    private fun action() {
+    fun inflate(parent: ViewGroup) {
         val balloon = LayoutInflater.from(context).inflate(R.layout.balloon_view, null)
         Log.d("kotlintest", "init baloonView")
         balloon.tag = "Balloon_View_Tag"
@@ -26,12 +26,20 @@ class BalloonView(private var title: String, private var content: String, privat
         balloon.visibility = View.VISIBLE
         balloon.setOnLongClickListener(this)
 
+    }
+
+
+
+    private fun action() {
+
+
 
 
     }
 
     override fun onLongClick(v: View?): Boolean {
         Log.d("kotlintest", "balloon long click")
+        Log.d("kotlintest", "v is = " + v.toString())
 
         val item = ClipData.Item(v!!.tag as CharSequence)
         val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)

@@ -58,31 +58,15 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
                     container.addView(view, params)
                     view.visibility = View.VISIBLE
 
-
-                    when(view.tag) {
-                        AnswerCreaterActivity.TEXT_VIEW_TAG -> {
-                            /*val copyTextView = LayoutInflater.from(this).inflate(R.layout.test_text_view, null) as TextView
-                            owner.addView(copyTextView)
-                            copyTextView.visibility = View.VISIBLE*/
-
-                            val balloon = BalloonView("title", "content", 0, 100, context, owner)
-
-                            Log.d("kotlintset", "balloon is" + balloon.toString())
-
-
-                        }
-                        AnswerCreaterActivity.IMAGE_VIEW_TAG -> {
-                            val copyImageView = LayoutInflater.from(context).inflate(R.layout.copy_image_view, null)
-                            owner.addView(copyImageView)
-                            copyImageView.visibility = View.VISIBLE
-                        }
-                        AnswerCreaterActivity.BUTTON_VIEW_TAG -> {
-                            val copyButton = LayoutInflater.from(context).inflate(R.layout.copy_button, null)
-                            owner.addView(copyButton)
-                            copyButton.visibility = View.VISIBLE
-                        }
+                    //inflate new balloon if it was dragged out from item_layout
+                    if (owner.id == R.id.item_layout) {
+                        Log.d("kotlintest", "inflate new balloon")
+                        val balloon = BalloonView("", "", 0, 100, context)
+                        balloon.inflate(owner)
                     }
 
+
+                    //add code lines to sync with firebase
 
 
 
@@ -91,6 +75,8 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
                     val container = v as RelativeLayout
                     val params = RelativeLayout.LayoutParams(view.width, view.height)
                     Log.d("kotlintest", "v.tag is " + view.tag.toString())
+
+                    /*
                     when(view.tag) {
                         AnswerCreaterActivity.TEXT_VIEW_TAG -> {
                             params.addRule(RelativeLayout.ALIGN_PARENT_START)
@@ -102,6 +88,7 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
                             params.addRule(RelativeLayout.ALIGN_PARENT_END)
                         }
                     }
+                    */
 
 
                     container.addView(view, params)
@@ -128,10 +115,4 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
             }
         }
     }
-
-    private fun setMyOnDragListener(v: View) {
-
-
-    }
-
 }
