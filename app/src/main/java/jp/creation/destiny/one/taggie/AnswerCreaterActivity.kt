@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
 
 import android.widget.*
+import drawable.ArrowView
 
 import kotlinx.android.synthetic.main.activity_answer_creater.*
 
@@ -15,6 +16,7 @@ class AnswerCreaterActivity : AppCompatActivity(){
     private lateinit var imageView: ImageView
     private lateinit var button: Button
     private lateinit var balloon: BalloonView
+    private lateinit var arrow: ArrowView
 
     /*
     companion object {
@@ -36,8 +38,11 @@ class AnswerCreaterActivity : AppCompatActivity(){
         itemLayout.setOnDragListener(MyOnDragListener(this))
 
 
-        balloon = BalloonView("title", "content", 0, 100, this)
+        balloon = BalloonView("title", "content", 20, 50, this)
         balloon.inflate(itemLayout)
+
+        arrow = ArrowView(300, 50, 0f, this)
+        arrow.inflate(itemLayout)
 
     }
 }

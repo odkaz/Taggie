@@ -61,7 +61,7 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
                     //inflate new balloon if it was dragged out from item_layout
                     if (owner.id == R.id.item_layout) {
                         Log.d("kotlintest", "inflate new balloon")
-                        val balloon = BalloonView("", "", 0, 100, context)
+                        val balloon = BalloonView("", "", 20, 50, context)
                         balloon.inflate(owner)
                     }
 
