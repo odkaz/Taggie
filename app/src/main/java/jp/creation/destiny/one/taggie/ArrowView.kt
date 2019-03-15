@@ -10,16 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import jp.creation.destiny.one.taggie.MyDragShadowBuilder
-import jp.creation.destiny.one.taggie.MyOnDragListener
 import jp.creation.destiny.one.taggie.R
 
 
-class ArrowView(private var posX: Int, private var posY: Int, private var degree: Float, context: Context): ImageView(context), View.OnClickListener, View.OnLongClickListener {
+class ArrowView(var posX: Int, var posY: Int, var degree: Float, context: Context): ImageView(context), View.OnClickListener, View.OnLongClickListener {
     fun inflate(parent: ViewGroup) {
         val arrow = LayoutInflater.from(context).inflate(R.layout.arrow_view, null)
         val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -43,18 +40,6 @@ class ArrowView(private var posX: Int, private var posY: Int, private var degree
         degree += 90f
         v.rotation = degree
 
-
-
-
-        /*val viewAsImageView = v as ImageView
-        val animation = RotateAnimation(0f, 360f, posX + v.width / 2f, posY + v.height / 2f)
-        animation.duration = 10000
-        animation.repeatCount = 0
-        animation.repeatMode = Animation.REVERSE
-        animation.fillAfter = true
-
-        viewAsImageView.animation = animation
-        */
     }
 
     override fun onLongClick(v: View?): Boolean {

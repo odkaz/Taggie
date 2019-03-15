@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "509911424755",
+    "firebase_url": "https://taggie.firebaseio.com",
+    "project_id": "taggie",
+    "storage_bucket": "taggie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509911424755:android:86c44da33b3621e4",
+        "android_client_info": {
+          "package_name": "jp.creation.destiny.one.taggie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509911424755-oqd86h8visgtr0u2hdt60lie5f0s1ua8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCur0YSi9lYbsjhNRPQU9YDbqIYaeTtwRM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

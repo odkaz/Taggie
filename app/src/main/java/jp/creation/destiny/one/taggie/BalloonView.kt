@@ -15,15 +15,15 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.test_text_view.view.*
 
 
-class BalloonView(private var title: String, private var content: String, private var posX: Int, private var posY: Int, context: Context): TextView(context), View.OnClickListener, View.OnLongClickListener {
+class BalloonView(var title: String, var content: String, var posX: Int, var posY: Int, context: Context): TextView(context), View.OnClickListener, View.OnLongClickListener{
 
     fun inflate(parent: ViewGroup) {
-        val balloon = LayoutInflater.from(context).inflate(R.layout.balloon_view, null)
+        val balloon = LayoutInflater.from(context).inflate(R.layout.balloon_view, null) as TextView
         val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         params.leftMargin = posX
         params.topMargin = posY
         Log.d("kotlintest", "init baloonView")
-        balloon.tag = "Balloon_View_Tag"
+        balloon.text = title
         parent.addView(balloon, params)
         balloon.visibility = View.VISIBLE
         balloon.setOnClickListener(this)
@@ -50,6 +50,7 @@ class BalloonView(private var title: String, private var content: String, privat
             viewAsTextView.text = title
             Log.d("kotlintest", "layout params is =" + viewAsTextView.layoutParams.toString())
             content = editContent.text.toString()
+            viewAsTextView.tag = editContent.text.toString()
             Log.d("kotlintest", content)
         }
         alert.create()

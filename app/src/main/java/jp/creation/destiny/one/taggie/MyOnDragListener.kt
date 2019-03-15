@@ -6,11 +6,11 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.util.Log
 import android.view.DragEvent
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.Toast
+import drawable.ArrowView
 
 class MyOnDragListener(private val context: Context): View.OnDragListener {
 
@@ -45,7 +45,6 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
                 Toast.makeText(context, "Dragged data is" + dragData, Toast.LENGTH_LONG).show()
                 v.background.clearColorFilter()
                 v.invalidate()
-
                 val view = event.localState as View
                 val owner = view.parent as ViewGroup
                 owner.removeView(view)
@@ -57,42 +56,59 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
 
                     container.addView(view, params)
                     view.visibility = View.VISIBLE
-
                     //inflate new balloon if it was dragged out from item_layout
                     if (owner.id == R.id.item_layout) {
-                        Log.d("kotlintest", "inflate new balloon")
-                        val balloon = BalloonView("", "", 20, 50, context)
-                        balloon.inflate(owner)
+                        when(view.tag) {
+                            "Balloon_View_Tag" -> {
+                                Log.d("kotlintest", "inflate balloon view")
+                                val balloon = BalloonView("", "", 20, 50, context)
+                                balloon.inflate(owner)
+
+                            }
+
+                            "Arrow_View_Tag" -> {
+                                Log.d("kotlintest", "inflate arrow view")
+                                val arrow = ArrowView(300, 50, 0f, context)
+                                arrow.inflate(owner)
+
+                            }
+                        }
                     }
 
 
-                    //add code lines to sync with firebase
+                    // task: add code lines to sync with firebase
 
 
 
                 } else if (v.id == R.id.item_layout){
+                    if (owner.id == R.id.item_layout) {
+                        Log.d("kotlintest", "the item was moved within item layout")
+                        //put the item to original position
+                        val container = v as RelativeLayout
+                        val params = RelativeLayout.LayoutParams(view.width, view.height)
+                        when(view.tag) {
+                            "Balloon_View_Tag" -> {
+                                params.leftMargin = 20
+                                params.topMargin = 50
+                            }
 
-                    val container = v as RelativeLayout
-                    val params = RelativeLayout.LayoutParams(view.width, view.height)
-                    Log.d("kotlintest", "v.tag is " + view.tag.toString())
+                            "Arrow_View_Tag" -> {
+                                params.leftMargin = 300
+                                params.topMargin = 50
 
-                    /*
-                    when(view.tag) {
-                        AnswerCreaterActivity.TEXT_VIEW_TAG -> {
-                            params.addRule(RelativeLayout.ALIGN_PARENT_START)
+                            }
                         }
-                        AnswerCreaterActivity.IMAGE_VIEW_TAG -> {
-                            params.addRule(RelativeLayout.CENTER_HORIZONTAL)
-                        }
-                        AnswerCreaterActivity.BUTTON_VIEW_TAG -> {
-                            params.addRule(RelativeLayout.ALIGN_PARENT_END)
-                        }
+                        Log.d("kotlintest", "v.tag is " + view.tag.toString())
+                        container.addView(view, params)
+                        view.visibility = View.VISIBLE
+
+                    } else if (owner.id == R.id.relative_layout) {
+                        Log.d("kotlintest", "the itme was moved from relative layout to item layout")
+
+                    } else {
+                        Log.e("kotlintest", "unexpected layout")
+
                     }
-                    */
-
-
-                    container.addView(view, params)
-                    view.visibility = View.VISIBLE
                 }
                 return true
             }
