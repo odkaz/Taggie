@@ -27,7 +27,6 @@ class AnswerListFragment(): Fragment() {
                 //val data = HashMap<String, String>()
                 children.forEach {
                     val data = it.value as HashMap<String, String>
-                    Log.d("kotlintest", "data[type].toString is" + data["type"].toString())
                     when (data["type"]) {
                         "balloon" -> {
                             val balloonView = BalloonView(data["title"]!!, data["content"]!!, data["posX"]!!.toInt(), data["posY"]!!.toInt(), view.context)

@@ -61,6 +61,6 @@ class QuestionListAdapter(context: Context): BaseAdapter() {
 
     fun setQuestionArrayList(questionArrayList: ArrayList<Question>) {
         mQuestionArrayList = questionArrayList
-    
+
     }
 }

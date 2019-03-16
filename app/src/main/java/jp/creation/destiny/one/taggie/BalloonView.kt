@@ -22,7 +22,6 @@ class BalloonView(var title: String, var content: String, var posX: Int, var pos
         val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         params.leftMargin = posX
         params.topMargin = posY
-        Log.d("kotlintest", "init baloonView")
         balloon.text = title
         parent.addView(balloon, params)
         balloon.visibility = View.VISIBLE
@@ -32,7 +31,6 @@ class BalloonView(var title: String, var content: String, var posX: Int, var pos
     }
 
     override fun onClick(v: View?) {
-        Log.d("kotlintest", "Balloon clicked")
         val alert = AlertDialog.Builder(context)
         val editTitle = EditText(context)
         val editContent = EditText(context)
@@ -45,22 +43,16 @@ class BalloonView(var title: String, var content: String, var posX: Int, var pos
         alert.setView(linearLayout)
         alert.setPositiveButton("OK") {_, _ ->
             title = editTitle.text.toString()
-            Log.d("kotlintest", title)
             val viewAsTextView = v as TextView
             viewAsTextView.text = title
-            Log.d("kotlintest", "layout params is =" + viewAsTextView.layoutParams.toString())
             content = editContent.text.toString()
             viewAsTextView.tag = editContent.text.toString()
-            Log.d("kotlintest", content)
         }
         alert.create()
         alert.show()
     }
 
     override fun onLongClick(v: View?): Boolean {
-        Log.d("kotlintest", "balloon long click")
-        Log.d("kotlintest", "v is = " + v.toString())
-
         val item = ClipData.Item(v!!.tag as CharSequence)
         val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
         val data = ClipData(v.tag.toString(), mimeTypes, item)

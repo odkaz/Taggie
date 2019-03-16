@@ -29,7 +29,6 @@ class QuestionListFragment: Fragment() {
         questionRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val children = dataSnapshot!!.children
-                Log.d("kotlintest", "children is =" + children.toString())
                 children.forEach {
                     when (it.key) {
                         "image" -> {
@@ -62,8 +61,6 @@ class QuestionListFragment: Fragment() {
 
             }
         })
-
-
         return view
     }
 }

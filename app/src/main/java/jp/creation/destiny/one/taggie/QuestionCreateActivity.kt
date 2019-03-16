@@ -140,7 +140,6 @@ class QuestionCreateActivity : AppCompatActivity(), View.OnClickListener, Databa
 
                 data["image"] = bitmapString
             }
-            // task : push().setvalue to the database
             dataBaseReference.child(ContentsPATH).push().setValue(data, this)
             progressbar.visibility = View.VISIBLE
         }

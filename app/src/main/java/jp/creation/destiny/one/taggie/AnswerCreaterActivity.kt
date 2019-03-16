@@ -50,13 +50,9 @@ class AnswerCreaterActivity : AppCompatActivity(){
         val answerRef = mDatabaseReference.child(ContentsPATH).child(qUid).child("answers")
         val answerViewRef = answerRef.child("view")
 
-
-        Log.d("kotlintest", qUid)
         for (i in 0 until v.childCount) {
             val data = HashMap<String, String>()
             val childView = v.getChildAt(i)
-            Log.d("kotlintest", childView.toString())
-
 
             if (v.getChildAt(i).id == R.id.balloonView) {
                 val mBalloon = v.getChildAt(i) as TextView
@@ -77,7 +73,6 @@ class AnswerCreaterActivity : AppCompatActivity(){
 
             val key = answerRef.push().key
             answerViewRef.child(key.toString()).setValue(data)
-            Log.d("kotilntest", "push uid is =" + key.toString())
 
         }
         finish()

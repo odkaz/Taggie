@@ -22,7 +22,6 @@ class ArrowView(var posX: Int, var posY: Int, var degree: Float, context: Contex
         val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         params.leftMargin = posX
         params.topMargin = posY
-        Log.d("kotlintest", "init baloonView")
         arrow.tag = "Arrow_View_Tag"
         parent.addView(arrow, params)
         arrow.visibility = View.VISIBLE
@@ -32,7 +31,6 @@ class ArrowView(var posX: Int, var posY: Int, var degree: Float, context: Contex
     }
 
     override fun onClick(v: View?) {
-        Log.d("kotlintest", "Arrow clicked")
         val changeTransform = ChangeTransform()
         changeTransform.duration = 100
         changeTransform.interpolator = AccelerateInterpolator()
@@ -43,9 +41,6 @@ class ArrowView(var posX: Int, var posY: Int, var degree: Float, context: Contex
     }
 
     override fun onLongClick(v: View?): Boolean {
-        Log.d("kotlintest", "arrow long click")
-        Log.d("kotlintest", "v is = " + v.toString())
-
         val item = ClipData.Item(v!!.tag as CharSequence)
         val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
         val data = ClipData(v.tag.toString(), mimeTypes, item)

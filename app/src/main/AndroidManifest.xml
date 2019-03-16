@@ -41,6 +41,8 @@
                 android:label="@string/title_activity_question_answer_tab"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".SettingActivity">
+        </activity>
     </application>
 
 </manifest>
