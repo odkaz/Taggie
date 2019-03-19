@@ -11,11 +11,8 @@ import android.support.v4.view.ViewPager
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.design.widget.TabLayout
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -32,6 +29,8 @@ class QuestionAnswerTabActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_answer_tab)
 
+        //window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         val mTabAdapter = TabAdapter(supportFragmentManager)
         val mViewPager = findViewById<ViewPager>(R.id.container)
         setupViewPager(mViewPager)
@@ -41,9 +40,18 @@ class QuestionAnswerTabActivity: AppCompatActivity() {
         val qUid = intent.extras.getString("qUid", "")
 
         fab.setOnClickListener {
-            val intent = Intent(applicationContext, AnswerCreaterActivity::class.java)
-            intent.putExtra("qUid", qUid)
-            startActivity(intent)
+            val firebaseAuth = FirebaseAuth.getInstance()
+            val currentUser = firebaseAuth.currentUser
+            if (currentUser != null) {
+                val intent = Intent(applicationContext, AnswerCreaterActivity::class.java)
+                intent.putExtra("qUid", qUid)
+                startActivity(intent)
+
+            } else {
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                startActivity(intent)
+
+            }
         }
     }
 
@@ -59,24 +67,24 @@ class QuestionAnswerTabActivity: AppCompatActivity() {
         adapter.addFragment(questionFragment, "Question")
 
         val answerRef = FirebaseDatabase.getInstance().reference.child(ContentsPATH).child(qUid).child(AnswersPATH)
+
+
         answerRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children
+                val child = dataSnapshot.children
+                child.forEach{
+                    val answerFragment = AnswerListFragment()
+                    bundle.putString("ansUid", it.key)
+                    answerFragment.arguments = bundle
+                    adapter.addFragment(answerFragment, "Answer")
+                    adapter.notifyDataSetChanged()
+                }
             }
-
             override fun onCancelled(p0: DatabaseError) {
 
             }
-        }
-
-
-
-        )
-        val answerFragment = AnswerListFragment()
-        answerFragment.arguments = bundle
-        adapter.addFragment(answerFragment, "Answer 1")
-
-
+        })
         viewPager.adapter = adapter
+
     }
 }

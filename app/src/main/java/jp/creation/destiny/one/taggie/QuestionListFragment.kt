@@ -2,8 +2,11 @@ package jp.creation.destiny.one.taggie
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.CardView
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,11 +22,17 @@ import drawable.ArrowView
 
 class QuestionListFragment: Fragment() {
 
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.list_question_detail, container, false) as ViewGroup
+        val frameLayout = view.getChildAt(1) as ViewGroup
+        val nestedScrollView = frameLayout.getChildAt(0) as ViewGroup
+        val cardView = nestedScrollView.getChildAt(0) as ViewGroup
         val mDatabaseReference = FirebaseDatabase.getInstance().reference
         val qUid = arguments!!.getString("qUid", "")
         val questionRef = mDatabaseReference.child(ContentsPATH).child(qUid)
+        var flag = true
 
 
         questionRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -39,21 +48,31 @@ class QuestionListFragment: Fragment() {
                                 byteArrayOf()
                             }
 
+
+
                             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
                             val imageView = view.getChildAt(0) as ImageView
+                            //view.background = BitmapDrawable(activity!!.resources, image)
                             imageView.setImageBitmap(image)
+                            Log.d("kotlintest", "image view height is = " + imageView.height.toString())
+                            flag = false
+
                         }
 
                         "title" -> {
-                            val contentText = view.getChildAt(1) as TextView
-                            contentText.text = it.value as String
+                            val titleText = cardView.getChildAt(0) as TextView
+                            titleText.text = it.value as String
                         }
 
-                        "name" -> {
-                            val nameText = view.getChildAt(2) as TextView
-                            nameText.text = it.value as String
+                        "content" -> {
+                            val contentText = cardView.getChildAt(1) as TextView
+                            contentText.text = it.value as String
                         }
                     }
+                }
+
+                if (flag) {
+                    cardView.y = 30f
                 }
             }
 

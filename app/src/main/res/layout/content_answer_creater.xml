@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             tools:context=".MainActivity"
-            android:background="#FF4444"
+            android:background="#FFFFFF"
             android:id="@+id/relative_layout"
             android:layout_weight="1">
 
@@ -22,7 +22,7 @@
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#D3D3D3"
     android:id="@+id/item_layout"
     android:layout_weight="2">
 

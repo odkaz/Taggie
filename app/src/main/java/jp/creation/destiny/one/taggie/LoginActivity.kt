@@ -134,9 +134,6 @@ class LoginActivity : AppCompatActivity() {
         val editor = sp.edit()
         editor.putString(NameKEY, name)
         editor.commit()
+
     }
-
-
-
-
 }

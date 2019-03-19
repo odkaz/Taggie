@@ -98,6 +98,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        //val testIntent = Intent(applicationContext, ScrollTest::class.java)
+        //startActivity(testIntent)
+
         mDatabaseReference = FirebaseDatabase.getInstance().reference
         mQuestionArrayList = ArrayList<Question>()
         mQuestionArrayList.clear()

@@ -15,7 +15,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.test_text_view.view.*
 
 
-class BalloonView(var title: String, var content: String, var posX: Int, var posY: Int, context: Context): TextView(context), View.OnClickListener, View.OnLongClickListener{
+class BalloonView(var title: String, var content: String, var posX: Int, var posY: Int, val createFlag: Boolean, context: Context): TextView(context), View.OnClickListener, View.OnLongClickListener{
 
     fun inflate(parent: ViewGroup) {
         val balloon = LayoutInflater.from(context).inflate(R.layout.balloon_view, null) as TextView
@@ -29,50 +29,58 @@ class BalloonView(var title: String, var content: String, var posX: Int, var pos
         balloon.setOnLongClickListener(this)
 
     }
-
     override fun onClick(v: View?) {
-        val alert = AlertDialog.Builder(context)
-        val editTitle = EditText(context)
-        val editContent = EditText(context)
-        val linearLayout = LinearLayout(context)
-        //putting edit title and content in the linearlayout, because alert dialog can take only one view
-        linearLayout.orientation = LinearLayout.VERTICAL
-        linearLayout.addView(editTitle)
-        linearLayout.addView(editContent)
-        alert.setTitle("please enter content")
-        alert.setView(linearLayout)
-        alert.setPositiveButton("OK") {_, _ ->
-            title = editTitle.text.toString()
+
+        if (createFlag) {
+            val alert = AlertDialog.Builder(context)
+            val editTitle = EditText(context)
+            val editContent = EditText(context)
+            val linearLayout = LinearLayout(context)
+            //putting edit title and content in the linearlayout, because alert dialog can take only one view
+            linearLayout.orientation = LinearLayout.VERTICAL
+            linearLayout.addView(editTitle)
+            linearLayout.addView(editContent)
+            alert.setTitle("please enter content")
+            alert.setView(linearLayout)
+
+            alert.setPositiveButton("OK") {_, _ ->
+                title = editTitle.text.toString()
+                val viewAsTextView = v as TextView
+                viewAsTextView.text = title
+                content = editContent.text.toString()
+                viewAsTextView.tag = editContent.text.toString()
+
+            }
+            alert.create()
+            alert.show()
+
+        } else {
+            //change the text
             val viewAsTextView = v as TextView
-            viewAsTextView.text = title
-            content = editContent.text.toString()
-            viewAsTextView.tag = editContent.text.toString()
+            if (viewAsTextView.text.toString() == title && content != "") {
+                viewAsTextView.text = content
+            } else {
+                viewAsTextView.text = title
+            }
         }
-        alert.create()
-        alert.show()
     }
 
     override fun onLongClick(v: View?): Boolean {
-        val item = ClipData.Item(v!!.tag as CharSequence)
-        val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
-        val data = ClipData(v.tag.toString(), mimeTypes, item)
+        if (createFlag) {
+            val item = ClipData.Item(v!!.tag as CharSequence)
+            val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
+            val data = ClipData(v.tag.toString(), mimeTypes, item)
 
-        val myShadow = MyDragShadowBuilder(v)
-        v.startDrag(
-            data,
-            myShadow,
-            v,
-            0
+            val myShadow = MyDragShadowBuilder(v)
+            v.startDrag(
+                data,
+                myShadow,
+                v,
+                0
+            )
+            v.visibility = View.INVISIBLE
 
-        )
-        v.visibility = View.INVISIBLE
-
+        }
         return true
     }
-
-
-
-
-
-
 }

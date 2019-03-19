@@ -60,15 +60,20 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
                     if (owner.id == R.id.item_layout) {
                         when(view.id) {
                             R.id.balloonView -> {
-                                val balloon = BalloonView("", "", 20, 50, context)
+                                val balloon = BalloonView("", "", 20, 50, true, context)
                                 balloon.inflate(owner)
 
                             }
 
                             R.id.arrowView -> {
-                                val arrow = ArrowView(300, 50, 0f, context)
+                                val arrow = ArrowView(300, 50, 0f, true,  context)
                                 arrow.inflate(owner)
 
+                            }
+
+                            R.id.giraffe1View -> {
+                                val giraffe = GiraffeOneView(450, 0, 200, true, context)
+                                giraffe.inflate(owner)
                             }
                         }
                     }
@@ -87,6 +92,11 @@ class MyOnDragListener(private val context: Context): View.OnDragListener {
                                 params.leftMargin = 300
                                 params.topMargin = 50
 
+                            }
+
+                            R.id.giraffe1View -> {
+                                params.leftMargin = 450
+                                params.topMargin = 0
                             }
                         }
                         container.addView(view, params)

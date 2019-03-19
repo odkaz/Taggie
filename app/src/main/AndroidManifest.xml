@@ -43,6 +43,8 @@
         </activity>
         <activity android:name=".SettingActivity">
         </activity>
+        <activity android:name=".ScrollTest">
+        </activity>
     </application>
 
 </manifest>
